@@ -320,7 +320,7 @@ class OpenAIHelper:
 
         self.__add_function_call_to_history(chat_id=chat_id, function_name=function_name, content=function_response)
         response = await self.client.chat.completions.create(
-            model=self.config['model'],
+            model="gpt-4o",
             messages=self.conversations[chat_id],
             functions=self.plugin_manager.get_functions_specs(),
             function_call='auto' if times < self.config['functions_max_consecutive_calls'] else 'none',
@@ -339,7 +339,7 @@ class OpenAIHelper:
             response = await self.client.images.generate(
                 prompt=prompt,
                 n=1,
-                model=self.config['image_model'],
+                model="dall-e-3",
                 quality=self.config['image_quality'],
                 style=self.config['image_style'],
                 size=self.config['image_size']
@@ -616,7 +616,7 @@ class OpenAIHelper:
             {"role": "user", "content": str(conversation)}
         ]
         response = await self.client.chat.completions.create(
-            model=self.config['model'],
+            model="gpt-4o",
             messages=messages,
             temperature=0.4
         )
